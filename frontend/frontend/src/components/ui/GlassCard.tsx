@@ -1,5 +1,5 @@
-import { BlurView } from "expo-blur";
-import { ViewStyle } from "react-native";
+import { View, ViewStyle } from "react-native";
+import { useTheme } from "@/context/ThemeContext";
 
 export default function GlassCard({
   children,
@@ -8,24 +8,28 @@ export default function GlassCard({
   children: React.ReactNode;
   style?: ViewStyle;
 }) {
+  const { colors } = useTheme();
+
   return (
-    <BlurView
-      intensity={25}
-      tint="dark"
+    <View
       style={[
         {
-          padding: 16,
-          borderRadius: 18,
+          padding: 20,
+          borderRadius: 16,
           marginBottom: 12,
-          overflow: "hidden",
-          backgroundColor: "rgba(0, 83, 122, 0.25)",
+          backgroundColor: colors.card,
           borderWidth: 1,
-          borderColor: "rgba(168, 232, 249, 0.15)",
+          borderColor: colors.border,
+          shadowColor: "#000",
+          shadowOffset: { width: 0, height: 4 },
+          shadowOpacity: 0.08,
+          shadowRadius: 10,
+          elevation: 4,
         },
         style,
       ]}
     >
       {children}
-    </BlurView>
+    </View>
   );
 }
